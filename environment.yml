@@ -1,0 +1,17 @@
+name: spectral-router
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.13
+  - "pymeep=1.32.0=mpi_mpich_*"
+  - mpi=1.0.1=mpich
+  - mpich=4.3.2
+  - mpi4py=4.1.1
+  - numpy
+  - scipy
+  - matplotlib
+  - h5py
+  - pandas
+  - autograd
