@@ -10,7 +10,10 @@ evaluation scripts, configuration metadata, and environment specification
 needed to reproduce the routing-efficiency values reported in the paper. The
 companion dataset, distributed separately through Google Drive, contains the
 final optimized designs, per-channel routing-efficiency spectra, focal-plane
-maps, and structure renders. The inverse-design optimization code is not included.
+maps, and structure renders.
+
+The inverse-design optimization code is not included because the design method
+is the subject of a pending patent application.
 
 All devices are binary **TiO₂/SiO₂** dielectric routers evaluated by FDTD at a
 resolution of **50 pixels/µm** (`dx = 0.02 µm`) under normal incidence, with
@@ -22,27 +25,28 @@ contains equal-amplitude, in-phase \(E_x\) and \(E_y\) components.
 
 ```text
 .
-├── evaluation/
-│   ├── 9CH_OE.py
-│   ├── 16CH_OE.py
-│   ├── 25CH_OE.py
-│   ├── 36CH_OE.py
-│   └── variants/
-├── data/
-│   └── README.md
+├── 9CH_OE.py
+├── 9CH_OE_compressed.py
+├── 16CH_OE.py
+├── 16CH_OE_compressed.py
+├── 25CH_OE.py
+├── 25CH_OE_compressed.py
+├── 36CH_OE.py
+├── 36CH_OE_arrangement.py
+├── 36CH_OE_VIS_NIR.py
 ├── configs.csv
 ├── environment.yml
 ├── LICENSE
-├── .gitignore
 └── README.md
 ```
 
-The large design and simulation files are distributed separately to keep the
-Git repository lightweight.
+The baseline and condition-specific evaluation scripts are kept in the
+repository root. The large design and simulation files are distributed
+separately to keep the Git repository lightweight.
 
 ## Dataset download
 
-- **Download:** [Google Drive](https://drive.google.com/file/d/1Iz3PUyKfI6lv6_D5PsY9_sw3eX32rOKy/view?usp=sharing)
+- **Download:** [Google Drive](https://drive.google.com/file/d/1btFerqUMPD0_WF19Riu1CgCxhb3mPP0H/view?usp=sharing)
 - **Archive:** `spectral_router_data_v1.0.zip`
 - **Dataset version:** `v1.0`
 
@@ -51,6 +55,7 @@ layout should be:
 
 ```text
 data/
+├── DATA_LICENSE.txt
 ├── 9ch/
 ├── 16ch/
 ├── 25ch/
@@ -190,7 +195,7 @@ example:
 
 ```bash
 cd data/36ch/36ch_p340_h2000
-mpirun -np 8 python ../../../evaluation/36CH_OE.py
+mpirun -np 8 python ../../../36CH_OE.py
 ```
 
 The script reads `final_design.txt` from the current directory and writes the
@@ -199,8 +204,13 @@ respectively.
 
 For a configuration whose parameters differ from those encoded in a baseline
 script, set `design_region_x`, `design_region_y`, `PD_size`, `DTI_size`, device
-height, and target wavelengths according to `configs.csv`. Condition-specific
-scripts for the variants are provided in `evaluation/variants/`.
+height, and target wavelengths according to `configs.csv`. The corresponding
+condition-specific scripts are provided in the repository root:
+
+- `9CH_OE_compressed.py`, `16CH_OE_compressed.py`, and
+  `25CH_OE_compressed.py` for the compressed-spacing controls
+- `36CH_OE_arrangement.py` for the wavelength-arrangement variant
+- `36CH_OE_VIS_NIR.py` for the visible–near-infrared extension
 
 MPI is recommended for practical run times. The number of processes may be
 adjusted to match the available hardware.
@@ -266,7 +276,19 @@ If you use these designs or evaluation scripts, please cite:
 
 Copyright (c) 2026 Hanyang University and the authors.
 
-The evaluation code is provided under the terms specified in `LICENSE`. The
-accompanying design and simulation dataset is provided for
-research-verification purposes under the terms included in the dataset
-archive.
+The evaluation scripts and related code in this repository are licensed under
+the MIT License. See `LICENSE` for details.
+
+The companion optimized-device and simulation dataset is not covered by the
+MIT License. It is licensed under the
+[Creative Commons Attribution-NonCommercial 4.0 International License
+(CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/). The complete
+data-license notice is included as `data/DATA_LICENSE.txt`.
+
+CC BY-NC 4.0 permits use, modification, and redistribution of the dataset for
+non-commercial purposes with appropriate attribution. Commercial use requires
+separate permission from the copyright holder.
+
+No patent rights are granted. The inverse-design optimization method and its
+implementation are not included and may be subject to pending patent
+applications.
