@@ -270,7 +270,7 @@ If you use these designs or evaluation scripts, please cite:
 
 > J. Han, S. Lee, D. Kim, and H. Chung, “Scaling Limits of Multichannel
 > Spectral Routers for Snapshot Imaging,” arXiv preprint, 2026.
-> [arXiv identifier to be added]
+> [2607.23508]
 
 ## License
 
